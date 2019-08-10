@@ -12,4 +12,4 @@ Features:
 
 ##### How to install:
 1.  `composer require fyz/traffic`
-2. `php artisan vendor:publish --tag=traffic` for overriding the default config
+2. **[Optional]** `php artisan vendor:publish --tag=traffic` for overriding the default config
