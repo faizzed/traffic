@@ -2,14 +2,14 @@ Traffic
 -
 Laravel traffic monitor. And much more.
 
-##### Features:
+#### Features:
 - Log http traffic
 - Measure performance on routes
 - Includes an api to use your logs in any possible way
 - Tremendous amount of information collected on devices and users
 
 
-##### How to install:
+#### How to install:
 1.  `composer require fyz/traffic`
 2. **[Optional]** `php artisan vendor:publish --tag=traffic` for overriding the default config
 3. add the following to your config/logging.php file under channels arrays
@@ -30,7 +30,7 @@ Laravel traffic monitor. And much more.
             ],
 
 
-##### How to use:
+#### How to use:
 This package can log all traffic on all routes or on some specific routes. `config/traffic.php` has those settings for you to configure. 
 1. **global**: [true/false] if this set to true all routes will be monitored and vice versa if set to false
 2. **routes**: [true/false] if this is set to true, routes containing the middleware tag will be monitored
