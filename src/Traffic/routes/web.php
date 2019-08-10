@@ -1,5 +1,17 @@
 <?php
 
-Route::get('/traffic', function () {
-    return "Hey from  ----- ";
+use Illuminate\Routing\Router;
+
+Route::name('traffic.')->prefix('traffic')->group(function (Router $router) {
+
+    $router->get('/', [
+        'as' => 'index',
+        'uses' => \Traffic\Controllers\TrafficController::class . '@index',
+    ]);
+
+    $router->fallback(function() {
+        $path = request()->path();
+       return "[Traffic]: {$path} leads to nowhere!";
+    });
+
 });
