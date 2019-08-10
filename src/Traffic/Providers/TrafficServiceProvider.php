@@ -2,12 +2,26 @@
 
 namespace Traffic\Providers;
 
+use Illuminate\Contracts\Http\Kernel;
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Traffic\Http\Middleware\TrafficMonitor;
 
 class TrafficServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(Router $router)
     {
+        $config = config('traffic');
+
+        if (isset($config['global']) && $config['global']) {
+            $kernel = app()->make(Kernel::class);
+            $kernel->pushMiddleware(TrafficMonitor::class);
+        }
+
+        if (isset($config['routes']) && $config['routes']) {
+            app('router')->middleware('traffic', TrafficMonitor::class);
+        }
+
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
 
         $this->publishes([
