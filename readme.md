@@ -3,7 +3,7 @@ Traffic
 
 Laravel traffic monitor. And much more.
 
-Features:
+##### Features:
 - Log http traffic
 - Measure performance on routes
 - Includes an api to use your logs in any possible way
