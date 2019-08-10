@@ -1,0 +1,24 @@
+{
+    "name": "fyz/traffic",
+    "description": "Monitor laravel traffic.",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Faiz09",
+            "email": "faizk2413@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Traffic\\": "src/Traffic/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Traffic\\Providers\\TrafficServiceProvider"
+            ]
+        }
+    }
+}
