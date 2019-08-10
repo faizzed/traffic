@@ -22,10 +22,7 @@ Laravel traffic monitor. And much more.
                 'days' => 14,
             ],
             'json' => [
-                'driver' => 'daily',
-                'path' => storage_path('logs/traffic/logs.json'),
-                'level' => 'debug',
-                'days' => 14,
+                'path' => storage_path('logs/traffic/logs.json')
             ]
         ],
 
