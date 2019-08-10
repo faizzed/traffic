@@ -2,17 +2,11 @@
 
 namespace Traffic\Listeners;
 
-use Traffic\Events\IncomingRequestEvent;
 use Traffic\Utils\Traffic;
 
 class IncomingRequestListener
 {
-    public function handle(IncomingRequestEvent $request)
-    {
-        $this->log();
-    }
-
-    private function log()
+    public function handle()
     {
         if (config('traffic.files.text')) {
             $this->text();
@@ -25,7 +19,7 @@ class IncomingRequestListener
 
     private function json()
     {
-        Traffic::text(request()->json());
+        Traffic::json(request()->all());
     }
 
     private function text()

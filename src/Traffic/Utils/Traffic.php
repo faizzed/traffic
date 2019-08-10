@@ -13,6 +13,6 @@ class Traffic
 
     public static function json($message, $flag = 'info')
     {
-        return Log::channel('traffic.text')->$flag($message);
+        return Log::channel('traffic.json')->$flag($message);
     }
 }

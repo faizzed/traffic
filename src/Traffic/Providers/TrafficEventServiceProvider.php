@@ -2,9 +2,9 @@
 
 namespace Traffic\Providers;
 
-use Illuminate\Events\EventServiceProvider;
 use Traffic\Events\IncomingRequestEvent;
 use Traffic\Listeners\IncomingRequestListener;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 
 class TrafficEventServiceProvider extends EventServiceProvider
 {
