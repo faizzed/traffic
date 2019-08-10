@@ -6,6 +6,13 @@ use Traffic\Utils\Traffic;
 
 class IncomingRequestListener
 {
+    private $traffic;
+
+    public function __construct(Traffic $traffic)
+    {
+        $this->traffic = $traffic;
+    }
+
     public function handle()
     {
         if (config('traffic.files.text')) {
@@ -19,11 +26,17 @@ class IncomingRequestListener
 
     private function json()
     {
-        Traffic::json(request()->all());
+        $this->traffic->json(
+            $this->traffic->getPayload()
+        );
     }
 
     private function text()
     {
-        Traffic::text(request()->all());
+        $this->traffic->text(
+            json_encode(
+                $this->traffic->getPayload()
+            )
+        );
     }
 }
