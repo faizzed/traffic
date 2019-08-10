@@ -28,3 +28,22 @@ Laravel traffic monitor. And much more.
                     'days' => 14,
                 ]
             ],
+
+
+##### How to use:
+This package can log all traffic on all routes or on some specific routes. `config/traffic.php` has those settings for you to configure. 
+1. **global**: [true/false] if this set to true all routes will be monitored and vice versa if set to false
+2. **routes**: [true/false] if this is set to true, routes containing the middleware tag will be monitored
+example:
+
+        // monitor a group of routes
+        Route::middleware(['traffic'])->group(function () {
+            Route::get('/hey', function() {
+                return "hello!";
+            });
+        });
+        
+        // monitor a single route
+        Route::get('/hey1', function() {
+            return "hello1!";
+        })->middleware(['traffic']);

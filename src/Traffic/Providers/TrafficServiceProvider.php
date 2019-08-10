@@ -3,13 +3,12 @@
 namespace Traffic\Providers;
 
 use Illuminate\Contracts\Http\Kernel;
-use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 use Traffic\Http\Middleware\TrafficMonitor;
 
 class TrafficServiceProvider extends ServiceProvider
 {
-    public function boot(Router $router)
+    public function boot()
     {
         $config = config('traffic');
 
@@ -19,7 +18,7 @@ class TrafficServiceProvider extends ServiceProvider
         }
 
         if (isset($config['routes']) && $config['routes']) {
-            app('router')->middleware('traffic', TrafficMonitor::class);
+            app('router')->aliasMiddleware('traffic', TrafficMonitor::class);
         }
 
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
