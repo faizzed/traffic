@@ -2,5 +2,9 @@
 
 return [
     'global' => true,
-    'routes' => false
+    'routes' => false,
+    'files' => [
+        'text' => true,
+        'json' => true
+    ]
 ];
