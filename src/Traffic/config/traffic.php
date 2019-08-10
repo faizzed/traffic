@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'a' => 'b'
+    'global' => true,
+    'routes' => false
 ];
