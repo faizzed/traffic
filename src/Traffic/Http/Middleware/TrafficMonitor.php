@@ -10,8 +10,6 @@ class TrafficMonitor
     public function handle($request, Closure $next)
     {
         //todo: block some nasty traffic here..
-
-        //todo: add some logging here
         event(new IncomingRequestEvent());
         //todo: measure some performance here
         //todo: do something with the request here
