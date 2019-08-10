@@ -15,19 +15,19 @@ Laravel traffic monitor. And much more.
 3. add the following to your config/logging.php file under channels arrays
         
         'traffic' => [
-                'text' => [
-                    'driver' => 'daily',
-                    'path' => storage_path('logs/traffic/text.log'),
-                    'level' => 'debug',
-                    'days' => 14,
-                ],
-                'json' => [
-                    'driver' => 'daily',
-                    'path' => storage_path('logs/traffic/logs.json'),
-                    'level' => 'debug',
-                    'days' => 14,
-                ]
+            'text' => [
+                'driver' => 'daily',
+                'path' => storage_path('logs/traffic/text.log'),
+                'level' => 'debug',
+                'days' => 14,
             ],
+            'json' => [
+                'driver' => 'daily',
+                'path' => storage_path('logs/traffic/logs.json'),
+                'level' => 'debug',
+                'days' => 14,
+            ]
+        ],
 
 
 #### How to use:
