@@ -84,6 +84,5 @@ class Traffic
     // the idea here is that it will be called on each request which isn't a very bright solution
     private function removeLogs($dir)
     {
-        $dir =
     }
 }
