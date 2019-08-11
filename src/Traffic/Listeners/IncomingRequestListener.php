@@ -15,11 +15,11 @@ class IncomingRequestListener
 
     public function handle()
     {
-        if (config('traffic.files.text')) {
+        if (config('traffic.logs.text')) {
             $this->text();
         }
 
-        if (config('traffic.files.json')) {
+        if (config('traffic.logs.json')) {
             $this->json();
         }
     }

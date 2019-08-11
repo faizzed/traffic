@@ -3,15 +3,20 @@
 namespace Traffic\Utils;
 
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Log;
 
 class Traffic
 {
     private $fileSystem;
+    private $requestsLogs;
+    private $performanceLogs;
+    private $days;
 
     public function __construct(Filesystem $filesystem)
     {
         $this->fileSystem = $filesystem;
+        $this->requestsLogs = sprintf("%s/%s", config('traffic.logs.dir'), 'requests');
+        $this->performanceLogs = sprintf("%s/%s", config('traffic.logs.dir'), 'performance');
+        $this->days = config('traffic.logs.days');
     }
 
     public static function getPayload()
@@ -31,32 +36,31 @@ class Traffic
         ];
     }
 
-    public function text($message, $flag = 'info')
+    public function text($message, $type = 'requests')
     {
-        Log::channel('traffic.text')->$flag($message);
+        $directory = $this->{$type."Logs"};
+        $textLogs = sprintf("%s/text", $directory);
+
+        if (!is_dir($textLogs)) {
+            mkdir($textLogs, 0755, true);
+        }
+
+        $fileName = sprintf("%s/%s-%s.log",$textLogs,'traffic', now()->format('Y-m-d'));
+        $timeStamp = now()->format('Y-m-d H:i:s');
+        $message = "[{$timeStamp}] .INFO: {$message}";
+        file_put_contents($fileName, $message, FILE_APPEND | LOCK_EX);
     }
 
-    public function json($message)
+    public function json($message, $type = 'requests')
     {
-        $config = config('logging.channels.traffic');
+        $directory = $this->{$type."Logs"};
+        $jsonLogs = sprintf("%s/json", $directory);
 
-        if (empty($config)) {
-            return;
+        if (!is_dir($jsonLogs)) {
+            mkdir($jsonLogs, 0755, true);
         }
 
-        $path = $config['json']['path'] ?? '';
-
-        if (!$path) {
-            return;
-        }
-
-        $directory = sprintf("%s", storage_path('logs/traffic/json'));
-
-        if (!is_dir($directory)) {
-            mkdir($directory, 0755, true);
-        }
-
-        $fileName = sprintf("%s/%s-%s.json",storage_path('logs/traffic/json'),'traffic', now()->format('Y-m-d'));
+        $fileName = sprintf("%s/%s-%s.json",$jsonLogs,'traffic', now()->format('Y-m-d'));
 
         if(is_file($fileName)) {
 
@@ -73,8 +77,13 @@ class Traffic
             $content = json_encode([$message], JSON_PRETTY_PRINT);
         }
 
-
-
         file_put_contents($fileName, $content, FILE_APPEND | LOCK_EX);
+    }
+
+    //todo: remove logs older then $this->days
+    // the idea here is that it will be called on each request which isn't a very bright solution
+    private function removeLogs($dir)
+    {
+        $dir =
     }
 }
