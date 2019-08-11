@@ -16,27 +16,11 @@ class IncomingRequestListener
     public function handle()
     {
         if (config('traffic.logs.text')) {
-            $this->text();
+            $this->traffic->text($this->traffic->getPayload());
         }
 
         if (config('traffic.logs.json')) {
-            $this->json();
+            $this->traffic->json($this->traffic->getPayload());
         }
-    }
-
-    private function json()
-    {
-        $this->traffic->json(
-            $this->traffic->getPayload()
-        );
-    }
-
-    private function text()
-    {
-        $this->traffic->text(
-            json_encode(
-                $this->traffic->getPayload()
-            )
-        );
     }
 }

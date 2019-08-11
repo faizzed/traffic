@@ -13,8 +13,7 @@ Route::name('traffic.')
     ]);
 
     $router->fallback(function() {
-        $path = request()->path();
-       return "[Traffic]: {$path} leads to nowhere!";
+       return sprintf("[Traffic]: %s leads to nowhere!", request()->path());
     });
 
 });

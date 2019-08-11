@@ -46,6 +46,7 @@ class Traffic
         }
 
         $fileName = sprintf("%s/%s-%s.log",$textLogs,'traffic', now()->format('Y-m-d'));
+        $message = json_encode($message);
         $timeStamp = now()->format('Y-m-d H:i:s');
         $message = "[{$timeStamp}] .INFO: {$message}";
         file_put_contents($fileName, $message, FILE_APPEND | LOCK_EX);
