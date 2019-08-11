@@ -58,16 +58,22 @@ class Traffic
 
         $fileName = sprintf("%s/%s-%s.json",storage_path('logs/traffic/json'),'traffic', now()->format('Y-m-d'));
 
-        $content = file_get_contents($fileName);
-        $decoded = json_decode($content);
+        if(is_file($fileName)) {
 
-        if (!empty($decoded)) {
-            $decoded[] = $message;
-            $content = json_encode($decoded, JSON_PRETTY_PRINT);
-            unlink($fileName);
+            $content = file_get_contents($fileName);
+            $decoded = json_decode($content);
+
+            if (!empty($decoded)) {
+                $decoded[] = $message;
+                $content = json_encode($decoded, JSON_PRETTY_PRINT);
+                unlink($fileName);
+            }
+
         }else{
             $content = json_encode([$message], JSON_PRETTY_PRINT);
         }
+
+
 
         file_put_contents($fileName, $content, FILE_APPEND | LOCK_EX);
     }
