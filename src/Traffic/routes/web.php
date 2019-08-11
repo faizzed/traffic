@@ -7,13 +7,18 @@ Route::name('traffic.')
     ->middleware('web')
     ->group(function (Router $router) {
 
-    $router->get('/', [
-        'as' => 'index',
-        'uses' => \Traffic\Controllers\TrafficController::class . '@index',
-    ]);
+        $router->any('/logs/{group}', [
+            'as' => 'logs.today',
+            'uses' => \Traffic\Controllers\TrafficController::class . '@today',
+        ]);
 
-    $router->fallback(function() {
-       return sprintf("[Traffic]: %s leads to nowhere!", request()->path());
-    });
+        $router->any('/logs/{group}/since/{days}', [
+            'as' => 'logs.since.days',
+            'uses' => \Traffic\Controllers\TrafficController::class . '@fetchSince',
+        ]);
+
+        $router->fallback(function() {
+           return sprintf("[Traffic]: %s leads to nowhere!", request()->path());
+        });
 
 });

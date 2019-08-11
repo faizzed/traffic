@@ -1,6 +1,8 @@
 Traffic
 -
-Laravel traffic monitor. And much more.
+Laravel traffic monitor is a minimal light weight package that collect intensive insights. The 
+package use filesystem and cleanup the garbage it makes after itself. Therefore making it a resources effective solution
+for such a trivial job. [Officially not making fun of all the database driven packages.]  
 
 #### Features:
 - Log http traffic
@@ -30,3 +32,14 @@ example:
         Route::get('/hey1', function() {
             return "hello1!";
         })->middleware(['traffic']);
+
+#### How to visualize:
+The point of collecting this data is to make use of it, and therefore there is an api that can help you with that.
+
+    traffic/logs/[requests|performance|devices|users]
+
+will fetch logs for today
+
+    traffic/logs/[requests|performance|devices|users]/since/{days}
+
+will fetch logs for today-days
