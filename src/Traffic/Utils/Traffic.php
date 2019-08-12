@@ -71,12 +71,12 @@ class Traffic
 
             if (!empty($decoded)) {
                 $decoded[] = $message;
-                $content = json_encode($decoded, JSON_PRETTY_PRINT);
+                $content = json_encode($decoded);
                 unlink($fileName);
             }
 
         }else{
-            $content = json_encode([$message], JSON_PRETTY_PRINT);
+            $content = json_encode([$message]);
         }
 
         file_put_contents($fileName, $content, FILE_APPEND | LOCK_EX);
