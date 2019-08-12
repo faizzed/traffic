@@ -45,6 +45,8 @@ class TrafficController extends BaseController
 
         }
 
-        return $this->success($response, "");
+        $since = date('Y-m-d', $since);
+
+        return $this->success($response, "logs since {$since}");
     }
 }
