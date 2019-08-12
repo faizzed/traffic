@@ -35,4 +35,11 @@ class BaseController
         return "";
     }
 
+    protected function validateResource($rsrc)
+    {
+        if (!in_array($rsrc, ['requests', 'performance', 'devices', 'users'])) {
+            throw new \Exception("$rsrc resource not found!");
+        }
+    }
+
 }
