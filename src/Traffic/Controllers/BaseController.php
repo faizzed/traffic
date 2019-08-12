@@ -22,4 +22,17 @@ class BaseController
         ];
     }
 
+    protected function getDate($input)
+    {
+        if(preg_match("/\d{4}-\d{2}-\d{2}/", $input, $match)) {
+            if (is_array($match)){
+                return $match[0] ?? '';
+            }
+
+            return $match;
+        }
+
+        return "";
+    }
+
 }

@@ -22,17 +22,18 @@ class Traffic
     public static function getPayload()
     {
        return [
-            'host' => request()->getHost(),
-            'port' => request()->getPort(),
-            'schema' => request()->getScheme(),
-            'path' => request()->path(),
-            'method' => request()->method(),
-            'ajax' => request()->ajax(),
-            'action'  => request()->route()->action['uses'] ?? '',
-            'params' => request()->all(),
-            'user' => request()->user()->email ?? '',
-            'ip' => request()->ip(),
-            'user-agent' => request()->userAgent(),
+           'time' => now()->format("Y-m-d H:i:s"),
+           'host' => request()->getHost(),
+           'port' => request()->getPort(),
+           'schema' => request()->getScheme(),
+           'path' => request()->path(),
+           'method' => request()->method(),
+           'ajax' => request()->ajax(),
+           'action'  => request()->route()->action['uses'] ?? '',
+           'params' => request()->all(),
+           'user' => request()->user()->email ?? '',
+           'ip' => request()->ip(),
+           'user-agent' => request()->userAgent(),
         ];
     }
 
