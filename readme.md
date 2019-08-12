@@ -39,10 +39,8 @@ There is a good amount of data that can be used from the following endpoints
 
 - Fetch logs for today
 
-
-    [GET/POST] https://host/traffic/logs/{resource}     // resource=requests|performance|devices|users
+        [GET/POST] https://host/traffic/logs/{resource}     // resource=requests|performance|devices|users
 
 - Fetch logs since 
 
-
-    [GET/POST] traffic/logs/{resource}/since/{days}     // resource=same as above
+        [GET/POST] https://host/traffic/logs/{resource}/since/{days}     // resource=same as above
