@@ -1,7 +1,7 @@
 Traffic
 -
 Traffic is a minimal light weight laravel monitoring package that collect intensive insights. The 
-package use filesystem and cleanup historical data. Therefore making it a resources effective solution
+package uses filesystem and cleanup historical data after itself. Therefore making it a resources effective solution
 for such a trivial job that's its supposed to do. [Unlike database driven packages.]  
 
 #### Features:
