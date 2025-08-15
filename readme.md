@@ -1,46 +1,87 @@
-Traffic
--
-Traffic is a light weight laravel monitoring package that collect intensive insights. The 
-package uses filesystem and cleanup historical data after itself, therefore making it a resources effective solution
-for the kind of such a trivial job that its supposed to do. [Unlike database driven packages.]  
+# Traffic
 
-#### Features:
-- Log http traffic
-- Measure performance on routes
-- Includes an api to use your logs in any possible way
-- [Todo] Tremendous amount of information collected on devices and users
+A lightweight Laravel monitoring package that provides comprehensive HTTP traffic insights without database overhead.
 
+## Overview
 
-#### How to install:
-1.  `composer require fyz/traffic`
-2. **[Optional]** `php artisan vendor:publish --tag=traffic` for overriding the default config
+Traffic is a filesystem-based Laravel monitoring solution that captures detailed request analytics, performance metrics, and user insights. Unlike database-driven alternatives, it uses efficient file storage with automatic cleanup, ensuring minimal impact on your application's performance.
 
-#### How to use:
-The package will log traffic on all routes by default or on some specific routes. `config/traffic.php` has those settings for you to configure. 
-1. **global**: [true/false] log all traffic
-2. **routes**: [true/false] if this is set to true, routes containing the middleware tag will be monitored
+## Features
 
-example:
+- **HTTP Traffic Logging** - Complete request/response monitoring
+- **Performance Metrics** - Route-level execution time analysis  
+- **Flexible Configuration** - Monitor all routes or specific endpoints
+- **RESTful API** - Query your analytics data programmatically
+- **Zero Database Impact** - Filesystem storage with automatic cleanup
+- **Device & User Analytics** - Comprehensive visitor insights
 
-        // monitor a group of routes
-        Route::middleware(['traffic'])->group(function () {
-            Route::get('/hey', function() {
-                return "hello!";
-            });
-        });
-        
-        // monitor a single route
-        Route::get('/hey1', function() {
-            return "hello1!";
-        })->middleware(['traffic']);
+## Installation
 
-#### How to visualize:
-There is a good amount of data that can be used from the following endpoints
+```bash
+composer require fyz/traffic
+```
 
-- Fetch logs for today
+**Optional:** Publish the configuration file to customize settings
+```bash
+php artisan vendor:publish --tag=traffic
+```
 
-        [GET/POST] https://host/traffic/logs/{resource}     // resource=requests|performance|devices|users
+## Configuration
 
-- Fetch logs since 
+Configure monitoring behavior in `config/traffic.php`:
 
-        [GET/POST] https://host/traffic/logs/{resource}/since/{days}     // resource=same as above
+- **global**: `true/false` - Monitor all application routes
+- **routes**: `true/false` - Enable selective monitoring via middleware
+
+## Usage
+
+### Global Monitoring
+Set `global: true` in config to monitor all routes automatically.
+
+### Selective Monitoring
+Use the `traffic` middleware on specific routes:
+
+```php
+// Monitor a route group
+Route::middleware(['traffic'])->group(function () {
+    Route::get('/api/users', [UserController::class, 'index']);
+    Route::post('/api/users', [UserController::class, 'store']);
+});
+
+// Monitor a single route
+Route::get('/dashboard', [DashboardController::class, 'index'])
+     ->middleware(['traffic']);
+```
+
+## Data Access
+
+Access your analytics via RESTful endpoints:
+
+### Today's Data
+```http
+GET|POST /traffic/logs/{resource}
+```
+
+### Historical Data  
+```http
+GET|POST /traffic/logs/{resource}/since/{days}
+```
+
+**Available Resources:**
+- `requests` - HTTP request logs
+- `performance` - Route execution metrics
+- `devices` - Device and browser analytics
+- `users` - User behavior insights
+
+## Example API Calls
+
+```bash
+# Get today's requests
+curl https://yourapp.com/traffic/logs/requests
+
+# Get performance data from last 7 days
+curl https://yourapp.com/traffic/logs/performance/since/7
+
+# Get user analytics from last 30 days
+curl https://yourapp.com/traffic/logs/users/since/30
+```
