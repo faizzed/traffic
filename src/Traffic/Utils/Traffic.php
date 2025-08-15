@@ -14,39 +14,39 @@ class Traffic
     public function __construct(Filesystem $filesystem)
     {
         $this->fileSystem = $filesystem;
-        $this->requestsLogs = sprintf("%s/%s", config('traffic.logs.dir'), 'requests');
-        $this->performanceLogs = sprintf("%s/%s", config('traffic.logs.dir'), 'performance');
+        $this->requestsLogs = sprintf('%s/%s', config('traffic.logs.dir'), 'requests');
+        $this->performanceLogs = sprintf('%s/%s', config('traffic.logs.dir'), 'performance');
         $this->days = config('traffic.logs.days');
     }
 
     public static function getPayload()
     {
-       return [
-           'time' => now()->format("Y-m-d H:i:s"),
-           'host' => request()->getHost(),
-           'port' => request()->getPort(),
-           'schema' => request()->getScheme(),
-           'path' => request()->path(),
-           'method' => request()->method(),
-           'ajax' => request()->ajax(),
-           'action'  => request()->route()->action['uses'] ?? '',
-           'params' => request()->all(),
-           'user' => request()->user()->email ?? '',
-           'ip' => request()->ip(),
-           'user-agent' => request()->userAgent(),
+        return [
+            'time' => now()->format('Y-m-d H:i:s'),
+            'host' => request()->getHost(),
+            'port' => request()->getPort(),
+            'schema' => request()->getScheme(),
+            'path' => request()->path(),
+            'method' => request()->method(),
+            'ajax' => request()->ajax(),
+            'action' => request()->route()->action['uses'] ?? '',
+            'params' => request()->all(),
+            'user' => request()->user()->email ?? '',
+            'ip' => request()->ip(),
+            'user-agent' => request()->userAgent(),
         ];
     }
 
     public function text($message, $type = 'requests')
     {
-        $directory = $this->{$type."Logs"};
-        $textLogs = sprintf("%s/text", $directory);
+        $directory = $this->{$type . 'Logs'};
+        $textLogs = sprintf('%s/text', $directory);
 
         if (!is_dir($textLogs)) {
             mkdir($textLogs, 0755, true);
         }
 
-        $fileName = sprintf("%s/%s-%s.log",$textLogs,'traffic', now()->format('Y-m-d'));
+        $fileName = sprintf('%s/%s-%s.log', $textLogs, 'traffic', now()->format('Y-m-d'));
         $message = json_encode($message);
         $timeStamp = now()->format('Y-m-d H:i:s');
         $message = "[{$timeStamp}] .INFO: {$message}";
@@ -55,17 +55,16 @@ class Traffic
 
     public function json($message, $type = 'requests')
     {
-        $directory = $this->{$type."Logs"};
-        $jsonLogs = sprintf("%s/json", $directory);
+        $directory = $this->{$type . 'Logs'};
+        $jsonLogs = sprintf('%s/json', $directory);
 
         if (!is_dir($jsonLogs)) {
             mkdir($jsonLogs, 0755, true);
         }
 
-        $fileName = sprintf("%s/%s-%s.json",$jsonLogs,'traffic', now()->format('Y-m-d'));
+        $fileName = sprintf('%s/%s-%s.json', $jsonLogs, 'traffic', now()->format('Y-m-d'));
 
-        if(is_file($fileName)) {
-
+        if (is_file($fileName)) {
             $content = file_get_contents($fileName);
             $decoded = json_decode($content);
 
@@ -74,17 +73,17 @@ class Traffic
                 $content = json_encode($decoded);
                 unlink($fileName);
             }
-
-        }else{
+        } else {
             $content = json_encode([$message]);
         }
 
         file_put_contents($fileName, $content, FILE_APPEND | LOCK_EX);
     }
 
-    //todo: remove logs older then $this->days
-    // the idea here is that it will be called on each request which isn't a very bright solution
+    // TODO: remove logs older than $this->days
+    // The idea here is that it will be called on each request which isn't a very bright solution
     private function removeLogs($dir)
     {
+        // Implementation needed
     }
 }

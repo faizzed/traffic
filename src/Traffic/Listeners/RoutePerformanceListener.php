@@ -18,8 +18,8 @@ class RoutePerformanceListener
     {
         $secs = $event->getSecs();
         $req = [
-            "path" => request()->path(),
-            "sec" => $secs
+            'path' => request()->path(),
+            'sec' => $secs
         ];
 
         if (config('traffic.logs.text')) {

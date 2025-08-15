@@ -4,5 +4,7 @@ namespace Traffic\Events;
 
 class IncomingRequestEvent
 {
-    public function __construct() {}
+    public function __construct()
+    {
+    }
 }

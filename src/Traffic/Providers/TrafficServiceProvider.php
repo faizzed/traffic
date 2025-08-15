@@ -24,7 +24,7 @@ class TrafficServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
 
         $this->publishes([
-            __DIR__.'/../config/traffic.php' => config_path('traffic.php'),
+            __DIR__ . '/../config/traffic.php' => config_path('traffic.php'),
         ], 'traffic');
     }
 }

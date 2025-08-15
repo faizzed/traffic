@@ -6,7 +6,8 @@ class RoutePerformanceEvent
 {
     private $secs;
 
-    public function __construct($secs) {
+    public function __construct($secs)
+    {
         $this->secs = $secs;
     }
 

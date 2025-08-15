@@ -17,8 +17,8 @@ Route::name('traffic.')
             'uses' => \Traffic\Controllers\TrafficController::class . '@fetchSince',
         ]);
 
-        $router->fallback(function() {
-           return sprintf("[Traffic]: %s leads to nowhere!", request()->path());
+        $router->fallback(function () {
+            return sprintf('[Traffic]: %s leads to nowhere!', request()->path());
         });
 
 });
